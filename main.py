@@ -2,6 +2,7 @@ from tkinter import*
 from tkinter import Tk, StringVar, ttk
 from tkinter.ttk import Combobox
 
+
 from PIL import Image, ImageTk
 from PIL.XbmImagePlugin import xbm_head
 
@@ -28,7 +29,7 @@ co9 = "#e9edf5" #+verde
 
 janela = Tk()
 janela.title('')
-janela.geometry('900x600')
+janela.geometry('900x700')
 janela.configure(background=co9)
 janela.resizable(width=FALSE, height=FALSE)
 
@@ -43,8 +44,9 @@ frameCima.grid(row=0, column=0)
 frameMeio = Frame(janela, width=1043, height=400, bg=co1,pady=20,relief=FLAT)
 frameMeio.grid(row=1, column=0, pady=1,padx=0,sticky=NSEW)
 
-frameBaixo = Frame(janela, width=1043, height=397,bg=co1, relief=FLAT)
-frameBaixo.grid(row=2, column=0, pady=0,padx=1,sticky=NSEW)
+frameBaixo = Frame(janela, width=1043, height=400,bg=co1, relief=FLAT)
+frameBaixo.grid(row=2, column=0,pady=0, padx=1, sticky='NSEW')
+
 
 
 
@@ -147,14 +149,12 @@ dtMovimento.place(x=400,y=160)
 e_dtMovimento = DateEntry(frameMeio, width='24', font=('Ivy 10 bold'),background='darkblue',bordewidth=2,year=2024, relief=SOLID, date_pattern='dd/mm/yyyy')
 e_dtMovimento.place(x=540, y=161)
 
-opcoes_Movimento = ["","SI- Saldo Inicial de Bens Imobilizados", "IA- Imobilização em Andamento - Componente", "CI- Conclusão de Imobilização em Andamento", "BA- Baixa de Bem - Fim do Período de Apropriação","PE- Perecimento, Extravio ou Deterioração","OT- Outras Saídas do Imobilizado"]
 
+opcoes_Movimento = ["","SI- Saldo Inicial de Bens Imobilizados", "IA- Imobilização em Andamento - Componente", "CI- Conclusão de Imobilização em Andamento", "BA- Baixa de Bem - Fim do Período de Apropriação","PE- Perecimento, Extravio ou Deterioração","OT- Outras Saídas do Imobilizado"]
 tipoMovimento= Label(frameMeio, text='Tipo de Movimento:', height=1, anchor=NW, font=('Ivy 10 bold'), bg=co1, fg=co4)
 tipoMovimento.place(x=400,y=190)
 combo_movimento = Combobox(frameMeio, values=opcoes_Movimento,height=5, width=24, font=('Ivy 10 bold'))
 combo_movimento.place(x=540,y=191)
-
-#Seleção
 
 
 
@@ -178,6 +178,46 @@ conta.place(x=400,y=310)
 e_conta = Entry(frameMeio, width=30, justify='left', relief=SOLID)
 e_conta.place(x=540, y=311)
 
+
+
+#criando botões
+
+#botão inserir
+
+imgagem_inserir = Image.open('icons8-add-50.png')
+imagem_inserir = imgagem_inserir.resize((20,20))
+imagem_inserir = ImageTk.PhotoImage(imagem_inserir)
+
+botao_inserir = Button(frameMeio, image=imagem_inserir, width=95, text=" ADICIONAR".upper(),compound=LEFT, anchor=NW,overrelief=RIDGE, font=('Ivy 8'), bg=co1,fg=co0)
+botao_inserir.place(x=770,y=10)
+
+#Botão atualizar
+
+imgagem_atualizar = Image.open('icons8-update-80.png')
+imagem_atualizar = imgagem_atualizar.resize((20,20))
+imagem_atualizar = ImageTk.PhotoImage(imagem_atualizar)
+
+botao_atualizar = Button(frameMeio, image=imagem_atualizar, width=95, text=" ATUALIZAR".upper(),compound=LEFT, anchor=NW,overrelief=RIDGE, font=('Ivy 8'), bg=co1,fg=co0)
+botao_atualizar.place(x=770,y=50)
+
+
+#Botão deletar
+
+imgagem_deletar = Image.open('icons8-delete-50.png')
+imagem_deletar = imgagem_deletar.resize((20,20))
+imagem_deletar = ImageTk.PhotoImage(imagem_deletar)
+
+botao_deletar = Button(frameMeio, image=imagem_deletar, width=95, text=" DELETAR".upper(),compound=LEFT, anchor=NW,overrelief=RIDGE, font=('Ivy 8'), bg=co1,fg=co0)
+botao_deletar.place(x=770,y=90)
+
+#Botão buscar
+
+imgagem_buscar = Image.open('icons8-search-48.png')
+imagem_buscar = imgagem_buscar.resize((20,20))
+imagem_buscar = ImageTk.PhotoImage(imagem_buscar)
+
+botao_buscar = Button(frameMeio, image=imagem_buscar, width=95, text=" BUSCAR".upper(),compound=LEFT, anchor=NW,overrelief=RIDGE, font=('Ivy 8'), bg=co1,fg=co0)
+botao_buscar.place(x=770,y=130)
 
 
 janela.mainloop()
