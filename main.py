@@ -8,11 +8,7 @@ from customtkinter import CTkImage
 from PIL import Image, ImageTk
 from tkinter.ttk import Combobox
 import locale
-
 from view import*
-
-
-
 
 
 #cores
@@ -31,12 +27,12 @@ co9 = "#e9edf5" #+verde
 
 
 #criando a janela
-
 janela = ctk.CTk()  # Substituindo Tk() por CTk()
-janela.title('')  # Título da janela (pode deixar vazio ou definir um título)
+janela.title('')# Título da janela (pode deixar vazio ou definir um título)
 janela.geometry('900x700')  # Tamanho da janela
 janela.configure(bg_color=co9)  # Cor de fundo (substituindo background de Tkinter por bg_color no customtkinter)
 janela.resizable(False, False)
+
 
 
 
@@ -136,7 +132,6 @@ def inserir():
 
 
  #criando logo no frameCima
-
 app_logo = ctk.CTkLabel(frameCima, image=app_img, text='            CONTROLE DE CRÉDITO DE ICMS DO ATIVO PERMANENTE', width=900, compound='left', anchor='nw', font=('Verdana', 20, 'bold'), text_color=co4, fg_color=co1)
 app_logo.place(x=0,y=0)
 
@@ -288,11 +283,13 @@ botao_inserir = ctk.CTkButton(
     text=" ADICIONAR".upper(),  # Texto do botão
     compound="left",  # Texto à esquerda da imagem
     anchor="nw",  # Alinhamento do texto
-    font=("Ivy", 10),  # Fonte do texto
-    fg_color=co1,  # Cor de fundo do botão
+    font=("Ivy", 12,'bold'),  # Fonte do texto
+    fg_color="#F0F0F0",  # Cor de fundo do botão
     text_color=co0,  # Cor do texto
     width=120,  # Largura do botão
-    height=30  # Altura do botão
+    height=30,  # Altura do botão
+    border_color="grey",  # Cor da borda
+    border_width=1  # Largura da borda
 
 )
 
@@ -311,11 +308,13 @@ botao_atualizar = ctk.CTkButton(
     text=" ATUALIZAR".upper(),  # Texto do botão
     compound="left",  # Texto à esquerda da imagem
     anchor="nw",  # Alinhamento do texto
-    font=("Ivy", 10),  # Fonte do texto
-    fg_color=co1,  # Cor de fundo do botão
+    font=("Ivy", 12, 'bold'),  # Fonte do texto
+    fg_color="#F0F0F0",  # Cor de fundo do botão
     text_color=co0,  # Cor do texto
     width=120,  # Largura do botão
-    height=30  # Altura do botão
+    height=30,# Altura do botão
+    border_color="grey",  # Cor da borda
+    border_width=1  # Largura da borda
 )
 
 # Posicionando o botão na tela
@@ -333,11 +332,13 @@ botao_deletar = ctk.CTkButton(
     text=" DELETAR".upper(),  # Texto do botão
     compound="left",  # Texto à esquerda da imagem
     anchor="nw",  # Alinhamento do texto
-    font=("Ivy", 10),  # Fonte do texto
-    fg_color=co1,  # Cor de fundo do botão
+    font=("Ivy", 12,'bold'),  # Fonte do texto
+    fg_color="#F0F0F0",  # Cor de fundo do botão
     text_color=co0,  # Cor do texto
     width=120,  # Largura do botão
-    height=30  # Altura do botão
+    height=30, # Altura do botão
+    border_color="grey",  # Cor da borda
+    border_width=1  # Largura da borda
 )
 
 # Posicionando o botão na tela
@@ -355,12 +356,13 @@ botao_procurar = ctk.CTkButton(
     text=" PROCURAR".upper(),  # Texto do botão
     compound="left",  # Texto à esquerda da imagem
     anchor="nw",  # Alinhamento do texto
-    font=("Ivy", 10),  # Fonte do texto
-    fg_color=co1,  # Cor de fundo do botão
+    font=("Ivy", 12, 'bold'),  # Fonte do texto
+    fg_color="#F0F0F0",  # Cor de fundo do botão
     text_color=co0,  # Cor do texto
     width=120,  # Largura do botão
-    height=30  # Altura do botão
-
+    height=30,  # Altura do botão
+    border_color="grey",  # Cor da borda
+    border_width=1  # Largura da borda
 )
 
 # Posicionando o botão na tela
@@ -407,13 +409,13 @@ def mostrar():
 
     # Criando os cabeçalhos da tabela na primeira linha
     for j, col in enumerate(tabela_head):
-        label = ctk.CTkLabel(tree_frame, text=col, width=200, anchor="w", font=("Arial", 10, "bold"))
+        label = ctk.CTkLabel(tree_frame, text=col, width=200, anchor="w", font=("Ivy", 12, "bold"))
         label.grid(row=0, column=j, padx=5, pady=5, sticky="w")  # Cabeçalhos na linha 0
 
     # Criando as células de dados na tabela
     for i, item in enumerate(lista_itens, start=1):  # Começa na linha 1, pois a linha 0 é dos cabeçalhos
         for j, valor in enumerate(item):
-            label = ctk.CTkLabel(tree_frame, text=str(valor), width=200, anchor="w", font=("Arial", 10))
+            label = ctk.CTkLabel(tree_frame, text=str(valor), width=200, anchor="w", font=("Ivy", 12))
             label.grid(row=i, column=j, padx=5, pady=5, sticky="w")  # Popula a tabela com os dados reais
 
     # Atualizando a área visível do canvas após adicionar os widgets
@@ -423,6 +425,8 @@ def mostrar():
     # Configuração do layout de rolagem
     frameBaixo.grid_rowconfigure(0, weight=1)  # Faz o Frame expandir verticalmente
     frameBaixo.grid_columnconfigure(0, weight=1)  # Faz o Frame expandir horizontalmente
+
+
 mostrar()
 
 janela.mainloop()
