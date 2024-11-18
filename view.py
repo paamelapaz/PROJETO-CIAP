@@ -44,6 +44,7 @@ def ver_form():
 
 # VER DADOS INDIVIDUAL
 def ver_item(id):
+    print(id)
     ver_dados_individual = []
     with con:
         cur = con.cursor()
@@ -53,6 +54,9 @@ def ver_item(id):
         rows = cur.fetchall()
         for row in rows:
             ver_dados_individual.append(row)
+    return ver_dados_individual
+
+
 
 
 
