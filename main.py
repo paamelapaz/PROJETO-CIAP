@@ -1,4 +1,6 @@
 import tkinter as tk
+from cProfile import label
+
 import customtkinter as ctk
 from tkinter import ttk
 from tkinter import messagebox
@@ -29,7 +31,7 @@ co9 = "#e9edf5" #+verde
 #criando a janela
 janela = ctk.CTk()  # Substituindo Tk() por CTk()
 janela.title('')# Título da janela (pode deixar vazio ou definir um título)
-janela.geometry('900x700')  # Tamanho da janela
+janela.geometry('1050x700')  # Tamanho da janela
 janela.configure(bg_color=co9)  # Cor de fundo (substituindo background de Tkinter por bg_color no customtkinter)
 janela.resizable(False, False)
 
@@ -66,6 +68,15 @@ app_img = app_img.resize((45,45))
 app_img = ctk.CTkImage(app_img, size=(45,45))
 
 #criando funções
+
+def label_entry(frame,label_text, pos_x,pos_y):
+    label= ctk.CTkLabel(frame, text=label_text, font=('Ivy',12,'bold'),text_color=co4, fg_color=co1)
+    label.place(x=pos_x,y=pos_y)
+    entry = ctk.CTkEntry(frame, width=170)
+    entry.place(x=pos_x+140,y=pos_y)
+    return entry
+
+
 #função inserir
 def inserir():
 
@@ -131,70 +142,30 @@ def inserir():
 
 
 
- #criando logo no frameCima
+
+
+
+
+
+
+
+#criando logo no frameCima
 app_logo = ctk.CTkLabel(frameCima, image=app_img, text='            CONTROLE DE CRÉDITO DE ICMS DO ATIVO PERMANENTE', width=900, compound='left', anchor='nw', font=('Verdana', 20, 'bold'), text_color=co4, fg_color=co1)
 app_logo.place(x=0,y=0)
 
 
-numeroRegistro = ctk.CTkLabel(frameMeio, text='Numero do Registro:', font=('Ivy',12,'bold'), text_color=co4, fg_color=co1)
-numeroRegistro.place(x=10,y=10)
-e_numeroRegistro = ctk.CTkEntry(frameMeio, width=170)
-e_numeroRegistro.place(x=150,y=10)
-
-tipoRegistro = ctk.CTkLabel(frameMeio, text='Tipo de Registro:', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-tipoRegistro.place(x=10,y=40)
-e_tipoRegistro = ctk.CTkEntry(frameMeio, width=170)
-e_tipoRegistro.place(x=150, y=41)
-
-numeroTabela = ctk.CTkLabel(frameMeio, text='Número da Tabela:', font=('Ivy', 12,'bold'), text_color=co4, fg_color=co1)
-numeroTabela.place(x=10,y=70)
-e_numeroTabela = ctk.CTkEntry(frameMeio, width=170)
-e_numeroTabela.place(x=150, y=71)
-
-nomeTabela = ctk.CTkLabel(frameMeio, text='Nome da Tabela:', font=('Ivy', 12,'bold'), text_color=co4, fg_color=co1)
-nomeTabela.place(x=10,y=100)
-e_nomeTabela = ctk.CTkEntry(frameMeio, width=170)
-e_nomeTabela.place(x=150, y=101)
-
-codigoBem = ctk.CTkLabel(frameMeio, text='Código do Bem:', font=('Ivy',12,'bold'), text_color=co4, fg_color=co1)
-codigoBem.place(x=10,y=130)
-e_codigoBem = ctk.CTkEntry(frameMeio, width=170)
-e_codigoBem.place(x=150, y=131)
-
-sequenciaBem = ctk.CTkLabel(frameMeio, text='Sequência do Bem:', font=('Ivy',12, 'bold'), text_color=co4, fg_color=co1)
-sequenciaBem.place(x=10,y=160)
-e_sequenciaBem = ctk.CTkEntry(frameMeio, width=170)
-e_sequenciaBem.place(x=150, y=161)
-
-fornecedor = ctk.CTkLabel(frameMeio, text='Fornecedor:', font=('Ivy', 12 ,'bold'),text_color=co4, fg_color=co1)
-fornecedor.place(x=10,y=190)
-e_fornecedor = ctk.CTkEntry(frameMeio, width=170)
-e_fornecedor.place(x=150, y=191)
-
-enderecoFornecedor = ctk.CTkLabel(frameMeio, text='Endereço do Fornec.:', font=('Ivy', 12 ,'bold'),text_color=co4, fg_color=co1)
-enderecoFornecedor.place(x=10,y=220)
-e_enderecoFornecedor = ctk.CTkEntry(frameMeio, width=170)
-e_enderecoFornecedor.place(x=150, y=221)
-
-descricaoBem = ctk.CTkLabel(frameMeio, text='Descrição do Bem:', font=('Ivy', 12, 'bold'),text_color=co4, fg_color=co1 )
-descricaoBem.place(x=10,y=250)
-e_descricaoBem = ctk.CTkEntry(frameMeio, width=170)
-e_descricaoBem.place(x=150, y=251)
-
-numDocAquis = ctk.CTkLabel(frameMeio, text='Num Doc. Aquisição:', font=('Ivy', 12, 'bold'),text_color=co4, fg_color=co1)
-numDocAquis.place(x=10,y=280)
-e_numDocAquis = ctk.CTkEntry(frameMeio, width=170)
-e_numDocAquis.place(x=150, y=281)
-
-serieDocCompra = ctk.CTkLabel(frameMeio, text='Série Doc. Compra:', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-serieDocCompra.place(x=10,y=310)
-e_serieDocCompra = ctk.CTkEntry(frameMeio, width=170)
-e_serieDocCompra.place(x=150, y=311)
-
-tipoDocCompra= ctk.CTkLabel(frameMeio, text='Tipo Doc. Compra:', font=('Ivy', 12, 'bold'),text_color=co4, fg_color=co1)
-tipoDocCompra.place(x=400,y=10)
-e_tipoDocCompra = ctk.CTkEntry(frameMeio, width=170)
-e_tipoDocCompra.place(x=540, y=11)
+e_numeroRegistro = label_entry(frameMeio, "Número do Registro:",10,10)
+e_tipoRegistro = label_entry(frameMeio,"Tipo de Registro:",10,40)
+e_numeroTabela = label_entry(frameMeio,"Número da Tabela:", 10,70)
+e_nomeTabela = label_entry(frameMeio,"Nome da Tabela:",10,100)
+e_codigoBem = label_entry(frameMeio,"Código do Bem",10,130)
+e_sequenciaBem = label_entry(frameMeio,'Sequência do Bem',10,160)
+e_fornecedor = label_entry(frameMeio,"Fornecedor:",10,190)
+e_enderecoFornecedor = label_entry(frameMeio,"Endereço do Fornec.:",10,220)
+e_descricaoBem = label_entry(frameMeio,"Descrição do Bem:",10,250)
+e_numDocAquis = label_entry(frameMeio,"Num Doc. Aquisição:",10,280)
+e_serieDocCompra = label_entry(frameMeio,"Serie Doc. Compra:", 10,310)
+e_tipoDocCompra = label_entry(frameMeio,"Tipo Doc. Compra:",400,10)
 
 dtEmissDoc = ctk.CTkLabel(frameMeio, text='Data de Emissão:', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
 dtEmissDoc.place(x=400, y=40)
@@ -202,21 +173,11 @@ dtEmissDoc.place(x=400, y=40)
 # Adicionando o DateEntry do tkcalendar
 e_dtEmissDoc = DateEntry(frameMeio, width=16, font=('Ivy', 12, 'bold'), background='darkblue', foreground='white', borderwidth=2, year=2024, date_pattern='dd/mm/yyyy')
 e_dtEmissDoc.place(x=540, y=41)
+e_dtEmissDoc = label_entry(frameMeio,"Data de Emissão",400,40)
 
-chaveNFECompra= ctk.CTkLabel(frameMeio, text='Chave NFE Compra:', font=('Ivy',12 ,'bold'), text_color=co4, fg_color=co1)
-chaveNFECompra.place(x=400,y=70)
-e_chaveNFECompra = ctk.CTkEntry(frameMeio, width=170)
-e_chaveNFECompra.place(x=540, y=71)
-
-valorICMSAquis= ctk.CTkLabel(frameMeio, text='Valor ICMS Aquis.:',font=('Ivy', 12, 'bold'),text_color=co4, fg_color=co1)
-valorICMSAquis.place(x=400,y=100)
-e_valorICMSAquis = ctk.CTkEntry(frameMeio, width=170)
-e_valorICMSAquis.place(x=540, y=101)
-
-numeroParcelas= ctk.CTkLabel(frameMeio, text='Numero de Parcelas:', font=('Ivy',12, 'bold'), text_color=co4, fg_color=co1)
-numeroParcelas.place(x=400,y=130)
-e_numeroParcelas = ctk.CTkEntry(frameMeio, width=170)
-e_numeroParcelas.place(x=540, y=131)
+e_chaveNFECompra = label_entry(frameMeio,"Chave NFE Compra:",400,70)
+e_valorICMSAquis = label_entry(frameMeio,'Valor ICMS Aquis:',400,100)
+e_numeroParcelas = label_entry(frameMeio,"Número de Parcelas:",400,130)
 
 # Label para a data de movimento
 dtMovimento = ctk.CTkLabel(frameMeio, text='Data Movimento:', height=1, anchor='nw', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
@@ -245,27 +206,10 @@ combo_movimento = ctk.CTkComboBox(frameMeio, values=opcoes_Movimento, width=170,
 combo_movimento.place(x=540, y=191)
 
 
-
-valorICMSMensal= ctk.CTkLabel(frameMeio, text='Valor ICMS Mensal:', font=('Ivy',12, 'bold'), text_color=co4, fg_color=co1)
-valorICMSMensal.place(x=400,y=220)
-e_valorICMSMensal = ctk.CTkEntry(frameMeio, width=170)
-e_valorICMSMensal.place(x=540, y=221)
-
-codigoItemEstoque= ctk.CTkLabel(frameMeio, text='Codigo Item Estoque:',font=('Ivy',12,'bold'), text_color=co4, fg_color=co1)
-codigoItemEstoque.place(x=400,y=250)
-e_codigoItemEstoque = ctk.CTkEntry(frameMeio, width=170)
-e_codigoItemEstoque.place(x=540, y=251)
-
-centroCusto= ctk.CTkLabel(frameMeio, text='Centro de Custo:',font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-centroCusto.place(x=400,y=280)
-e_centroCusto = ctk.CTkEntry(frameMeio, width=170)
-e_centroCusto.place(x=540, y=281)
-
-conta= ctk.CTkLabel(frameMeio, text='Conta:', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-conta.place(x=400,y=310)
-e_conta = ctk.CTkEntry(frameMeio, width=170)
-e_conta.place(x=540, y=311)
-
+e_valorICMSMensal = label_entry(frameMeio,"Valor ICMS Mensal:",400,220)
+e_codigoItemEstoque = label_entry(frameMeio,"Código Item Estoque:",400,250)
+e_centroCusto = label_entry(frameMeio,"Centro de Custo",400,280)
+e_conta = label_entry(frameMeio,"Conta:",400,310)
 
 
 
@@ -275,26 +219,27 @@ imagem_inserir = Image.open('icons8-add-50.png')  # Caminho para a imagem
 imagem_inserir = imagem_inserir.resize((20, 20))  # Redimensionando a imagem
 imagem_inserir = ctk.CTkImage(imagem_inserir)  # Converta para PhotoImage para o Tkinter
 
-# Criando o botão no customtkinter (CTkButton)
-botao_inserir = ctk.CTkButton(
+botao_atualizar = ctk.CTkButton(
     frameMeio,
-    command=inserir,
-    image=imagem_inserir,  # Imagem do botão
-    text=" ADICIONAR".upper(),  # Texto do botão
+    image=imagem_inserir,
+    text='ADICIONAR'.upper(),
     compound="left",  # Texto à esquerda da imagem
     anchor="nw",  # Alinhamento do texto
-    font=("Ivy", 12,'bold'),  # Fonte do texto
+    font=("Ivy", 12, 'bold'),  # Fonte do texto
     fg_color="#F0F0F0",  # Cor de fundo do botão
     text_color=co0,  # Cor do texto
     width=120,  # Largura do botão
-    height=30,  # Altura do botão
+    height=30,# Altura do botão
     border_color="grey",  # Cor da borda
-    border_width=1  # Largura da borda
-
+    border_width=1 # Largura da borda
 )
 
 # Posicionando o botão na tela
-botao_inserir.place(x=770, y=10)
+botao_atualizar.place(x=770, y=10)
+
+
+
+
 
 # Abrindo a imagem
 imagem_atualizar = Image.open('icons8-update-80.png')  # Caminho para a imagem
@@ -314,7 +259,7 @@ botao_atualizar = ctk.CTkButton(
     width=120,  # Largura do botão
     height=30,# Altura do botão
     border_color="grey",  # Cor da borda
-    border_width=1  # Largura da borda
+    border_width=1 # Largura da borda
 )
 
 # Posicionando o botão na tela
@@ -368,28 +313,23 @@ botao_procurar = ctk.CTkButton(
 # Posicionando o botão na tela
 botao_procurar.place(x=770, y=130)
 
+# Função para mostrar a tabela
 def mostrar():
     # Cabeçalhos da tabela
     tabela_head = ['COD', 'Número do Registro', 'Tipo do Registro', 'Número da Tabela', 'Nome da Tabela', 'Código Bem',
                    'Sequência Bem', 'Fornecedor', 'Endereço Fornecedor', 'Descrição do Bem',
-                   'Número Documento Aquisição',
-                   'Série do Documento Compra', 'Tipo Documento Compra', 'Data de Emissão do Documento',
-                   'Chave NFE Compra',
-                   'Valor ICMS Aquisição', 'Numero de Parcelas', 'Data de Movimento', 'Tipo de Movimento',
-                   'Valor ICMS Mensal',
-                   'Código Item Estoque', 'Centro de Custo', 'Conta']
-
+                   'Número Documento Aquisição', 'Série do Documento Compra', 'Tipo Documento Compra', 'Data de Emissão do Documento',
+                   'Chave NFE Compra', 'Valor ICMS Aquisição', 'Numero de Parcelas', 'Data de Movimento', 'Tipo de Movimento',
+                   'Valor ICMS Mensal', 'Código Item Estoque', 'Centro de Custo', 'Conta']
 
     # Obtendo os dados para a tabela
     lista_itens = ver_form()
 
-    # Criando o Frame para a tabela
-    frameBaixo = ctk.CTkFrame(janela)
-    frameBaixo.grid(row=4, column=0, sticky="nsew")
-    janela.grid_rowconfigure(0, weight=1)
-    janela.grid_columnconfigure(0, weight=1)
+    # Limpando o conteúdo existente no frameBaixo
+    for widget in frameBaixo.winfo_children():
+        widget.destroy()
 
-    # Criando o Canvas para rolagem dentro do frame
+    # Criando o Canvas para rolagem dentro do frameBaixo
     canvas = ctk.CTkCanvas(frameBaixo)
     canvas.grid(row=0, column=0, sticky="nsew")
 
@@ -403,30 +343,32 @@ def mostrar():
     # Configurando o Canvas para usar as barras de rolagem
     canvas.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
-    # Criando o Frame onde os widgets da tabela (cabeçalhos e dados) vão ficar
+    # Criando o Frame onde a Treeview vai ficar
     tree_frame = ctk.CTkFrame(canvas)
     canvas.create_window((0, 0), window=tree_frame, anchor="nw")
 
-    # Criando os cabeçalhos da tabela na primeira linha
-    for j, col in enumerate(tabela_head):
-        label = ctk.CTkLabel(tree_frame, text=col, width=200, anchor="w", font=("Ivy", 12, "bold"))
-        label.grid(row=0, column=j, padx=5, pady=5, sticky="w")  # Cabeçalhos na linha 0
+    # Criando a Treeview
+    tree = ttk.Treeview(tree_frame, columns=tabela_head, show="headings")
+    tree.pack(fill=tk.BOTH, expand=True)
 
-    # Criando as células de dados na tabela
-    for i, item in enumerate(lista_itens, start=1):  # Começa na linha 1, pois a linha 0 é dos cabeçalhos
-        for j, valor in enumerate(item):
-            label = ctk.CTkLabel(tree_frame, text=str(valor), width=200, anchor="w", font=("Ivy", 12))
-            label.grid(row=i, column=j, padx=5, pady=5, sticky="w")  # Popula a tabela com os dados reais
+    # Adicionando os cabeçalhos da tabela
+    for col in tabela_head:
+        tree.heading(col, text=col)
+
+    # Inserindo os dados na Treeview
+    for item in lista_itens:
+        tree.insert("", "end", values=item)
 
     # Atualizando a área visível do canvas após adicionar os widgets
     tree_frame.update_idletasks()  # Atualiza o layout para garantir que o canvas tenha o tamanho correto
-    canvas.config(scrollregion=canvas.bbox("all"))  # Ajusta a área de rolagem do canvas
+
+    # Ajustando a área de rolagem do canvas após inserir os itens
+    canvas.config(scrollregion=canvas.bbox("all"))  # Ajusta a área de rolagem para o tamanho do conteúdo
 
     # Configuração do layout de rolagem
     frameBaixo.grid_rowconfigure(0, weight=1)  # Faz o Frame expandir verticalmente
     frameBaixo.grid_columnconfigure(0, weight=1)  # Faz o Frame expandir horizontalmente
 
-
+# Chama a função para exibir a interface
 mostrar()
-
 janela.mainloop()
