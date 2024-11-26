@@ -11,6 +11,7 @@ from PIL import Image, ImageTk
 from tkinter.ttk import Combobox
 import locale
 from view import*
+global tree
 
 
 #cores
@@ -138,15 +139,162 @@ def inserir():
 
     mostrar()
 
+#função atualizar
+
+def atualizar():
+    global tree
+    try:
+        treev_dados = tree.focus()
+        treev_dicionario = tree.item(treev_dados)
+        treev_lista = treev_dicionario['values']
+
+        valor = treev_lista[0]
+
+        e_numeroRegistro.delete(0, 'end')
+        e_tipoRegistro.delete(0, 'end')
+        e_numeroTabela.delete(0, 'end')
+        e_nomeTabela.delete(0, 'end')
+        e_codigoBem.delete(0, 'end')
+        e_sequenciaBem.delete(0, 'end')
+        e_fornecedor.delete(0, 'end')
+        e_enderecoFornecedor.delete(0, 'end')
+        e_descricaoBem.delete(0, 'end')
+        e_numDocAquis.delete(0, 'end')
+        e_serieDocCompra.delete(0, 'end')
+        e_tipoDocCompra.delete(0, 'end')
+        e_dtEmissDoc.delete(0, 'end')
+        e_chaveNFECompra.delete(0, 'end')
+        e_valorICMSAquis.delete(0, 'end')
+        e_numeroParcelas.delete(0, 'end')
+        e_dtMovimento.delete(0, 'end')
+        combo_movimento.set("")
+        e_valorICMSMensal.delete(0, 'end')
+        e_codigoItemEstoque.delete(0, 'end')
+        e_centroCusto.delete(0, 'end')
+        e_conta.delete(0, 'end')
 
 
+        id = int(treev_lista[0])
+        e_numeroRegistro.insert(0,treev_lista[1])
+        e_tipoRegistro.insert(0, treev_lista[2])
+        e_numeroTabela.insert(0, treev_lista[3])
+        e_nomeTabela.insert(0, treev_lista[4])
+        e_codigoBem.insert(0, treev_lista[5])
+        e_sequenciaBem.insert(0, treev_lista[6])
+        e_fornecedor.insert(0, treev_lista[7])
+        e_enderecoFornecedor.insert(0, treev_lista[8])
+        e_descricaoBem.insert(0, treev_lista[9])
+        e_numDocAquis.insert(0, treev_lista[10])
+        e_serieDocCompra.insert(0, treev_lista[11])
+        e_tipoDocCompra.insert(0, treev_lista[12])
+        e_dtEmissDoc.insert(0, treev_lista[13])
+        e_chaveNFECompra.insert(0, treev_lista[14])
+        e_valorICMSAquis.insert(0, treev_lista[15])
+        e_numeroParcelas.insert(0, treev_lista[16])
+        e_dtMovimento.insert(0, treev_lista[17])
+        combo_movimento.set(treev_lista[18])
+        e_valorICMSMensal.insert(0, treev_lista[19])
+        e_codigoItemEstoque.insert(0, treev_lista[20])
+        e_centroCusto.insert(0, treev_lista[21])
+        e_conta.insert(0, treev_lista[22])
 
+        def update():
+            numero_registro = e_numeroRegistro.get()
+            tipo_registro = e_tipoRegistro.get()
+            numero_tabela = e_numeroTabela.get()
+            nome_tabela = e_nomeTabela.get()
+            codigo_do_bem = e_codigoBem.get()
+            sequencia_do_bem = e_sequenciaBem.get()
+            fornecedor = e_fornecedor.get()
+            endereco_fornecedor = e_enderecoFornecedor.get()
+            descricao_bem = e_descricaoBem.get()
+            numero_doc_aquisicao = e_numDocAquis.get()
+            serie_doc_compra = e_serieDocCompra.get()
+            tipo_doc_compra = e_tipoDocCompra.get()
+            data_emissao_compra = e_dtEmissDoc.get()
+            chave_nfe_compra = e_chaveNFECompra.get()
+            valor_icms_aquisicao = e_valorICMSAquis.get()
+            numero_parcelas = e_numeroParcelas.get()
+            data_movimento = e_dtMovimento.get()
+            tipo_movimento = combo_movimento.get()
+            valor_icms_mensal = e_valorICMSMensal.get()
+            codigo_item_estoque = e_codigoItemEstoque.get()
+            centro_custo = e_centroCusto.get()
+            conta = e_conta.get()
 
+            lista_atualizar = [numero_registro, tipo_registro, numero_tabela, nome_tabela, codigo_do_bem, sequencia_do_bem, fornecedor, endereco_fornecedor, descricao_bem, numero_doc_aquisicao, serie_doc_compra,tipo_doc_compra, data_emissao_compra, chave_nfe_compra, valor_icms_aquisicao, numero_parcelas,data_movimento, tipo_movimento, valor_icms_mensal, codigo_item_estoque, centro_custo, conta,id]
 
+            for i in lista_atualizar:
+                if i =='':
+                    messagebox.showerror('Erro', 'Preencha todos os campos')
+                    return
+            atualizar_form(lista_atualizar)
+            messagebox.showinfo('Sucesso', 'Os dados foram atualizados com sucesso')
 
+            e_numeroRegistro.delete(0, 'end')
+            e_tipoRegistro.delete(0, 'end')
+            e_numeroTabela.delete(0, 'end')
+            e_nomeTabela.delete(0, 'end')
+            e_codigoBem.delete(0, 'end')
+            e_sequenciaBem.delete(0, 'end')
+            e_fornecedor.delete(0, 'end')
+            e_enderecoFornecedor.delete(0, 'end')
+            e_descricaoBem.delete(0, 'end')
+            e_numDocAquis.delete(0, 'end')
+            e_serieDocCompra.delete(0, 'end')
+            e_tipoDocCompra.delete(0, 'end')
+            e_dtEmissDoc.delete(0, 'end')
+            e_chaveNFECompra.delete(0, 'end')
+            e_valorICMSAquis.delete(0, 'end')
+            e_numeroParcelas.delete(0, 'end')
+            e_dtMovimento.delete(0, 'end')
+            combo_movimento.set('')
+            e_valorICMSMensal.delete(0, 'end')
+            e_codigoItemEstoque.delete(0, 'end')
+            e_centroCusto.delete(0, 'end')
+            e_conta.delete(0, 'end')
 
+            botao_confirmar.destroy()
+            mostrar()
 
+        botao_confirmar = ctk.CTkButton(
+            frameMeio,
+            command=update,
+            text=" Confirmar".upper(),  # Texto do botão
+            font=("Ivy", 12, 'bold'),  # Fonte do texto
+            fg_color="#32cd32",  # Cor de fundo do botão
+            text_color=co0,  # Cor do texto
+            width=120,  # Largura do botão
+            height=30,  # Altura do botão
+            border_color="green",  # Cor da borda
+            border_width=1  # Largura da borda
+        )
 
+        # Posicionando o botão na tela
+        botao_confirmar.place(x=770, y=220)
+
+    except IndexError:
+        messagebox.showerror('Erro', 'Selecione um dos dados na tabela')
+
+#função atualizar
+
+def deletar():
+    global tree
+    try:
+        treev_dados = tree.focus()
+        treev_dicionario = tree.item(treev_dados)
+        treev_lista = treev_dicionario['values']
+
+        valor = treev_lista[0]
+
+        deletar_form([valor])
+
+        messagebox.showinfo('Sucesso', 'Os dados foram deletados com sucesso')
+
+        mostrar()
+
+    except IndexError:
+        messagebox.showerror('Erro', 'Selecione um dos dados na tabela')
 
 
 #criando logo no frameCima
@@ -186,6 +334,7 @@ dtMovimento.place(x=400, y=160)
 # Adicionando o DateEntry para Data Movimento
 e_dtMovimento = DateEntry(frameMeio, width=16, font=('Ivy', 12, 'bold'), background='darkblue', foreground='white', borderwidth=2, year=2024, date_pattern='dd/mm/yyyy')
 e_dtMovimento.place(x=540, y=161)
+e_dtMovimento = label_entry(frameMeio,"Data de Emissão",400,160)
 
 opcoes_Movimento = [
     "",
@@ -219,8 +368,9 @@ imagem_inserir = Image.open('icons8-add-50.png')  # Caminho para a imagem
 imagem_inserir = imagem_inserir.resize((20, 20))  # Redimensionando a imagem
 imagem_inserir = ctk.CTkImage(imagem_inserir)  # Converta para PhotoImage para o Tkinter
 
-botao_atualizar = ctk.CTkButton(
+botao_inserir = ctk.CTkButton(
     frameMeio,
+    command=inserir,
     image=imagem_inserir,
     text='ADICIONAR'.upper(),
     compound="left",  # Texto à esquerda da imagem
@@ -235,10 +385,7 @@ botao_atualizar = ctk.CTkButton(
 )
 
 # Posicionando o botão na tela
-botao_atualizar.place(x=770, y=10)
-
-
-
+botao_inserir.place(x=770, y=10)
 
 
 # Abrindo a imagem
@@ -249,6 +396,7 @@ imagem_atualizar = ctk.CTkImage(imagem_atualizar)  # Converta para PhotoImage pa
 # Criando o botão no customtkinter (CTkButton)
 botao_atualizar = ctk.CTkButton(
     frameMeio,
+    command=atualizar,
     image=imagem_atualizar,  # Imagem do botão
     text=" ATUALIZAR".upper(),  # Texto do botão
     compound="left",  # Texto à esquerda da imagem
@@ -273,6 +421,7 @@ imagem_deletar = ctk.CTkImage(imagem_deletar)  # Converta para PhotoImage para o
 # Criando o botão no customtkinter (CTkButton)
 botao_deletar = ctk.CTkButton(
     frameMeio,
+    command=deletar,
     image=imagem_deletar,  # Imagem do botão
     text=" DELETAR".upper(),  # Texto do botão
     compound="left",  # Texto à esquerda da imagem
@@ -313,9 +462,13 @@ botao_procurar = ctk.CTkButton(
 # Posicionando o botão na tela
 botao_procurar.place(x=770, y=130)
 
+
+
+
 # Função para mostrar a tabela
 def mostrar():
     # Cabeçalhos da tabela
+    global tree
     tabela_head = ['COD', 'Número do Registro', 'Tipo do Registro', 'Número da Tabela', 'Nome da Tabela', 'Código Bem',
                    'Sequência Bem', 'Fornecedor', 'Endereço Fornecedor', 'Descrição do Bem',
                    'Número Documento Aquisição', 'Série do Documento Compra', 'Tipo Documento Compra', 'Data de Emissão do Documento',
