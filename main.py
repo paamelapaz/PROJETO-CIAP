@@ -576,15 +576,18 @@ def exportar_para_txt():
                     valor = str(row[i + 1]).strip()  # Obtemos o valor do campo (row[1], row[2], ...)
 
                     if tipo == "Numérico":
+
+                        valor=valor.replace('.','').replace(',','')
                         # Se for numérico, completamos com zeros à esquerda
-                        valor = valor.zfill(tamanho)
+                        valor = valor[:tamanho].zfill(tamanho)
                     elif tipo == "Alfanumérico":
+                        valor= valor[:tamanho].ljust(tamanho)
                         # Se for alfanumérico, completamos com espaços à direita
                         if campo == "Tipo de Movimento":
                             # Para o campo "Tipo de Movimento", pegamos apenas os dois primeiros caracteres
                             valor = valor[:2].ljust(tamanho)
                         else:
-                            valor = valor.ljust(tamanho)
+                            valor = valor[:tamanho].ljust(tamanho)
                     elif tipo == "Data":
                         # Para data, formatamos como DDMMYYYY (sem separadores)
                         valor = valor.replace("/", "").zfill(tamanho)  # Remove barras e preenche com zeros à esquerda
