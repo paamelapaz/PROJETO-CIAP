@@ -14,6 +14,8 @@ from view import*
 global tree
 
 
+
+
 #cores
 
 co0 = "#2e2d2b" #preta
@@ -38,8 +40,6 @@ janela.resizable(False, False)
 
 
 
-
-
 # Criando o frame superior (frameCima)
 frameCima = ctk.CTkFrame(janela, width=1043, height=50, fg_color=co1)  # Substituindo o Frame por CTkFrame e fg_color no lugar de bg
 frameCima.grid(row=0, column=0, sticky="ew")  # 'sticky="ew"' garante que o frame ocupe toda a largura disponível
@@ -58,9 +58,9 @@ linha_divisoria_2 = ctk.CTkFrame(janela, width=1043, height=1, fg_color=co4)  # 
 linha_divisoria_2.grid(row=3, column=0, sticky="ew")
 
 # Criando o frame inferior (frameBaixo)
-frameBaixo = ctk.CTkFrame(janela, width=1043, height=300, fg_color=co1)  # Usando fg_color para definir a cor de fundo
-frameBaixo.grid(row=4, column=0, pady=0, padx=1, sticky="nsew")
-janela.grid_rowconfigure(4, weight=1)  # Garantir que o frameBaixo ocupe o restante do espaço
+frameBaixo = ctk.CTkFrame(janela)  # Usando fg_color para definir a cor de fundo
+frameBaixo.grid(row=4,column=0,sticky="nsew")
+  # Garantir que o frameBaixo ocupe o restante do espaço
 
 
 #Abrindo imagem
@@ -71,6 +71,7 @@ app_img = ctk.CTkImage(app_img, size=(45,45))
 #criando funções
 
 def label_entry(frame,label_text, pos_x,pos_y):
+
     label= ctk.CTkLabel(frame, text=label_text, font=('Ivy',12,'bold'),text_color=co4, fg_color=co1)
     label.place(x=pos_x,y=pos_y)
     entry = ctk.CTkEntry(frame, width=170)
@@ -298,7 +299,7 @@ def deletar():
 
 
 #criando logo no frameCima
-app_logo = ctk.CTkLabel(frameCima, image=app_img, text='            CONTROLE DE CRÉDITO DE ICMS DO ATIVO PERMANENTE', width=900, compound='left', anchor='nw', font=('Verdana', 20, 'bold'), text_color=co4, fg_color=co1)
+app_logo = ctk.CTkLabel(frameCima, image=app_img, text='                   CONTROLE DE CRÉDITO DE ICMS DO ATIVO PERMANENTE', width=900, compound='left', anchor='nw', font=('Verdana', 20, 'bold'), text_color=co4, fg_color=co1)
 app_logo.place(x=0,y=0)
 
 
@@ -469,6 +470,7 @@ botao_procurar.place(x=770, y=130)
 def mostrar():
     # Cabeçalhos da tabela
     global tree
+
     tabela_head = ['COD', 'Número do Registro', 'Tipo do Registro', 'Número da Tabela', 'Nome da Tabela', 'Código Bem',
                    'Sequência Bem', 'Fornecedor', 'Endereço Fornecedor', 'Descrição do Bem',
                    'Número Documento Aquisição', 'Série do Documento Compra', 'Tipo Documento Compra', 'Data de Emissão do Documento',
@@ -476,33 +478,34 @@ def mostrar():
                    'Valor ICMS Mensal', 'Código Item Estoque', 'Centro de Custo', 'Conta']
 
     # Obtendo os dados para a tabela
-    lista_itens = ver_form()
+    lista_itens = ver_form()  #Substitua isso pela sua função que retorna os dados
 
-    # Limpando o conteúdo existente no frameBaixo
     for widget in frameBaixo.winfo_children():
         widget.destroy()
 
     # Criando o Canvas para rolagem dentro do frameBaixo
-    canvas = ctk.CTkCanvas(frameBaixo)
+    canvas = tk.Canvas(frameBaixo)
     canvas.grid(row=0, column=0, sticky="nsew")
 
     # Criando as barras de rolagem
-    vsb = ctk.CTkScrollbar(frameBaixo, command=canvas.yview)
-    vsb.grid(row=0, column=1, sticky="ns")  # Barra de rolagem vertical
+    vsb = ttk.Scrollbar(frameBaixo,orient="vertical")
+    vsb.grid(row=0, column=1, sticky="ns")
+    vsb.config(command=canvas.yview)
 
-    hsb = ctk.CTkScrollbar(frameBaixo, command=canvas.xview, orientation="horizontal")
+    # Barra de rolagem vertical
+    hsb = ttk.Scrollbar(frameBaixo,orient="horizontal", command=canvas.xview)
     hsb.grid(row=1, column=0, sticky="ew")  # Barra de rolagem horizontal
 
     # Configurando o Canvas para usar as barras de rolagem
     canvas.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
     # Criando o Frame onde a Treeview vai ficar
-    tree_frame = ctk.CTkFrame(canvas)
+    tree_frame = tk.Frame(canvas)
     canvas.create_window((0, 0), window=tree_frame, anchor="nw")
 
     # Criando a Treeview
-    tree = ttk.Treeview(tree_frame, columns=tabela_head, show="headings")
-    tree.pack(fill=tk.BOTH, expand=True)
+    tree = ttk.Treeview(tree_frame, columns=tabela_head, show="headings", yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+    tree.grid(row=100, column=100, sticky="nsew")  # Usando grid em vez de pack para maior controle
 
     # Adicionando os cabeçalhos da tabela
     for col in tabela_head:
@@ -520,8 +523,85 @@ def mostrar():
 
     # Configuração do layout de rolagem
     frameBaixo.grid_rowconfigure(0, weight=1)  # Faz o Frame expandir verticalmente
-    frameBaixo.grid_columnconfigure(0, weight=1)  # Faz o Frame expandir horizontalmente
+    frameBaixo.grid_columnconfigure(0, weight=1)  # Ajuste a coluna para expandir proporcionalmente
+
+    # Configurando o Frame para redimensionar junto com o canvas
+    tree_frame.grid_rowconfigure(0, weight=1)  # Garantir que a Treeview ocupe o espaço disponível
+    tree_frame.grid_columnconfigure(0, weight=1)
+
+
+def exportar_para_txt():
+    dados = ver_form()  # Pega todos os dados da tabela
+
+    # Caminho absoluto para o arquivo
+    caminho = r'C:\Users\Parasmo\PycharmProjects\CIAP\pythonProject\produtos_exportados.txt'
+
+    if not dados:  # Verifica se não há dados
+        print("Nenhum dado encontrado para exportar.")
+        return
+
+    # Definindo os campos com o tipo de dado e o número de caracteres
+    campos = [
+        ("Número do Registro", "Numérico", 8),
+        ("Tipo Registro", "Numérico", 1),
+        ("Número da Tabela", "Numérico", 3),
+        ("Nome da Tabela", "Alfanumérico", 30),
+        ("Código Bem", "Alfanumérico", 30),
+        ("Sequência Bem", "Numérico", 4),
+        ("Fornecedor", "Numérico", 14),
+        ("Endereço Fornecedor", "Numérico", 4),
+        ("Descrição Bem", "Alfanumérico", 60),
+        ("Número Documento Aquisição", "Numérico", 9),
+        ("Série Documento Compra", "Numérico", 3),
+        ("Tipo Documento Compra", "Numérico", 4),
+        ("Data Emissão Documento", "Data", 8),
+        ("Chave NFE Compra", "Alfanumérico", 44),
+        ("Valor ICMS Aquisição", "Numérico", 16),
+        ("Número Parcelas", "Numérico", 2),
+        ("Data Movimento", "Data", 8),
+        ("Tipo de Movimento", "Alfanumérico", 2),  # Este campo deve pegar apenas os dois primeiros caracteres
+        ("Valor ICMS Mensal", "Numérico", 16),
+        ("Código Item Estoque", "Alfanumérico", 30),
+        ("Centro de Custo", "Alfanumérico", 10),
+        ("Conta", "Alfanumérico", 20)
+    ]
+
+    try:
+        # Abre o arquivo para escrita
+        with open(caminho, "w") as f:
+            # Para cada linha de dados no banco, escrevemos os dados concatenados em uma linha do arquivo
+            for row in dados:
+                linha = ""
+                for i, (campo, tipo, tamanho) in enumerate(campos):
+                    valor = str(row[i + 1]).strip()  # Obtemos o valor do campo (row[1], row[2], ...)
+
+                    if tipo == "Numérico":
+                        # Se for numérico, completamos com zeros à esquerda
+                        valor = valor.zfill(tamanho)
+                    elif tipo == "Alfanumérico":
+                        # Se for alfanumérico, completamos com espaços à direita
+                        if campo == "Tipo de Movimento":
+                            # Para o campo "Tipo de Movimento", pegamos apenas os dois primeiros caracteres
+                            valor = valor[:2].ljust(tamanho)
+                        else:
+                            valor = valor.ljust(tamanho)
+                    elif tipo == "Data":
+                        # Para data, formatamos como DDMMYYYY (sem separadores)
+                        valor = valor.replace("/", "").zfill(tamanho)  # Remove barras e preenche com zeros à esquerda
+
+                    # Concatenando os valores de cada campo
+                    linha += valor  # Sem adicionar espaço entre os campos
+
+                # Escrever a linha no arquivo
+                f.write(linha + "\n")
+
+        print(f"Dados exportados com sucesso para {caminho}")
+
+    except Exception as e:
+        print(f"Erro ao exportar os dados: {e}")
+
 
 # Chama a função para exibir a interface
+exportar_para_txt()
 mostrar()
 janela.mainloop()
