@@ -34,7 +34,7 @@ co9 = "#e9edf5" #+verde
 #criando a janela
 janela = ctk.CTk()  # Substituindo Tk() por CTk()
 janela.title('')# Título da janela (pode deixar vazio ou definir um título)
-janela.geometry('1050x700')  # Tamanho da janela
+janela.geometry('1050x657')  # Tamanho da janela
 janela.configure(bg_color=co9)  # Cor de fundo (substituindo background de Tkinter por bg_color no customtkinter)
 janela.resizable(False, False)
 
@@ -59,8 +59,11 @@ linha_divisoria_2.grid(row=3, column=0, sticky="ew")
 
 # Criando o frame inferior (frameBaixo)
 frameBaixo = ctk.CTkFrame(janela)  # Usando fg_color para definir a cor de fundo
-frameBaixo.grid(row=4,column=0,sticky="nsew")
+frameBaixo.grid(row=3,column=0,sticky="nsew")
   # Garantir que o frameBaixo ocupe o restante do espaço
+
+janela.grid_rowconfigure(3, weight=1)  # Configura a linha 3 para expandir
+janela.grid_columnconfigure(0, weight=1)
 
 
 #Abrindo imagem
@@ -488,9 +491,8 @@ def mostrar():
     canvas.grid(row=0, column=0, sticky="nsew")
 
     # Criando as barras de rolagem
-    vsb = ttk.Scrollbar(frameBaixo,orient="vertical")
+    vsb = ttk.Scrollbar(frameBaixo,orient="vertical",command=canvas.yview)
     vsb.grid(row=0, column=1, sticky="ns")
-    vsb.config(command=canvas.yview)
 
     # Barra de rolagem vertical
     hsb = ttk.Scrollbar(frameBaixo,orient="horizontal", command=canvas.xview)
@@ -501,11 +503,12 @@ def mostrar():
 
     # Criando o Frame onde a Treeview vai ficar
     tree_frame = tk.Frame(canvas)
-    canvas.create_window((0, 0), window=tree_frame, anchor="nw")
+
+    tree_frame.grid(row=0,column=0, sticky='nsew')
 
     # Criando a Treeview
     tree = ttk.Treeview(tree_frame, columns=tabela_head, show="headings", yscrollcommand=vsb.set, xscrollcommand=hsb.set)
-    tree.grid(row=100, column=100, sticky="nsew")  # Usando grid em vez de pack para maior controle
+    tree.grid(row=0, column=0, sticky="nsew")  # Usando grid em vez de pack para maior controle
 
     # Adicionando os cabeçalhos da tabela
     for col in tabela_head:
@@ -514,6 +517,9 @@ def mostrar():
     # Inserindo os dados na Treeview
     for item in lista_itens:
         tree.insert("", "end", values=item)
+
+
+    canvas.create_window((0,0), window=tree_frame, anchor='nw')
 
     # Atualizando a área visível do canvas após adicionar os widgets
     tree_frame.update_idletasks()  # Atualiza o layout para garantir que o canvas tenha o tamanho correto
@@ -529,6 +535,9 @@ def mostrar():
     tree_frame.grid_rowconfigure(0, weight=1)  # Garantir que a Treeview ocupe o espaço disponível
     tree_frame.grid_columnconfigure(0, weight=1)
 
+    vsb.config(command=tree.yview)
+
+    tree.grid(row=0,column=0, sticky='nsew')
 
 def exportar_para_txt():
     dados = ver_form()  # Pega todos os dados da tabela
