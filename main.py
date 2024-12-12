@@ -77,7 +77,7 @@ def label_entry(frame,label_text, pos_x,pos_y):
 
     label= ctk.CTkLabel(frame, text=label_text, font=('Ivy',12,'bold'),text_color=co4, fg_color=co1)
     label.place(x=pos_x,y=pos_y)
-    entry = ctk.CTkEntry(frame, width=170)
+    entry = ctk.CTkEntry(frame, width=240,height=15)
     entry.place(x=pos_x+140,y=pos_y)
     return entry
 
@@ -275,7 +275,7 @@ def atualizar():
         )
 
         # Posicionando o botão na tela
-        botao_confirmar.place(x=770, y=220)
+        botao_confirmar.place(x=870, y=220)
 
     except IndexError:
         messagebox.showerror('Erro', 'Selecione um dos dados na tabela')
@@ -306,39 +306,30 @@ app_logo = ctk.CTkLabel(frameCima, image=app_img, text='                   CONTR
 app_logo.place(x=0,y=0)
 
 
-e_numeroRegistro = label_entry(frameMeio, "Número do Registro:",10,10)
-e_tipoRegistro = label_entry(frameMeio,"Tipo de Registro:",10,40)
-e_numeroTabela = label_entry(frameMeio,"Número da Tabela:", 10,70)
-e_nomeTabela = label_entry(frameMeio,"Nome da Tabela:",10,100)
-e_codigoBem = label_entry(frameMeio,"Código do Bem",10,130)
-e_sequenciaBem = label_entry(frameMeio,'Sequência do Bem',10,160)
-e_fornecedor = label_entry(frameMeio,"Fornecedor:",10,190)
-e_enderecoFornecedor = label_entry(frameMeio,"Endereço do Fornec.:",10,220)
-e_descricaoBem = label_entry(frameMeio,"Descrição do Bem:",10,250)
-e_numDocAquis = label_entry(frameMeio,"Num Doc. Aquisição:",10,280)
-e_serieDocCompra = label_entry(frameMeio,"Serie Doc. Compra:", 10,310)
-e_tipoDocCompra = label_entry(frameMeio,"Tipo Doc. Compra:",400,10)
+e_numeroRegistro = label_entry(frameMeio, "NÚMERO DE REGISTRO:",15,10)
+e_tipoRegistro = label_entry(frameMeio,"TIPO DE REGISTRO:",15,40)
+e_numeroTabela = label_entry(frameMeio,"NÚMERO DA TABELA:", 15,70)
+e_nomeTabela = label_entry(frameMeio,"NOME DA TABELA:",15,100)
+e_codigoBem = label_entry(frameMeio,"CÓDIGO DO BEM:",15,130)
+e_sequenciaBem = label_entry(frameMeio,'SEQUÊNCIA DO BEM:',15,160)
+e_fornecedor = label_entry(frameMeio,"FORNECEDOR:",15,190)
+e_enderecoFornecedor = label_entry(frameMeio,"ENDEREÇO DO FORNEC.:",15,220)
+e_descricaoBem = label_entry(frameMeio,"DESCRIÇÃO DO BEM:",15,250)
+e_numDocAquis = label_entry(frameMeio,"NUM DOC. AQUISUIÇÃO:",15,280)
+e_serieDocCompra = label_entry(frameMeio,"SÉRIE DOC. COMPRA:", 15,310)
+e_tipoDocCompra = label_entry(frameMeio,"TIPO DOC. COMPRA:",450,10)
 
-dtEmissDoc = ctk.CTkLabel(frameMeio, text='Data de Emissão:', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-dtEmissDoc.place(x=400, y=40)
+dtEmissDoc = ctk.CTkLabel(frameMeio, text='DATA DE EMISSÃO:', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
+dtEmissDoc.place(x=450, y=40)
+e_dtEmissDoc = label_entry(frameMeio,"DATA DE EMISSÃO:",450,40)
 
-# Adicionando o DateEntry do tkcalendar
-e_dtEmissDoc = DateEntry(frameMeio, width=16, font=('Ivy', 12, 'bold'), background='darkblue', foreground='white', borderwidth=2, year=2024, date_pattern='dd/mm/yyyy')
-e_dtEmissDoc.place(x=540, y=41)
-e_dtEmissDoc = label_entry(frameMeio,"Data de Emissão",400,40)
-
-e_chaveNFECompra = label_entry(frameMeio,"Chave NFE Compra:",400,70)
-e_valorICMSAquis = label_entry(frameMeio,'Valor ICMS Aquis:',400,100)
-e_numeroParcelas = label_entry(frameMeio,"Número de Parcelas:",400,130)
+e_chaveNFECompra = label_entry(frameMeio,"CHAVE NFE COMPRA:",450,70)
+e_valorICMSAquis = label_entry(frameMeio,'VALOR ICMS AQUIS.:',450,100)
+e_numeroParcelas = label_entry(frameMeio,"NÚMERO DE PARCELAS:",450,130)
 
 # Label para a data de movimento
-dtMovimento = ctk.CTkLabel(frameMeio, text='Data Movimento:', height=1, anchor='nw', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-dtMovimento.place(x=400, y=160)
 
-# Adicionando o DateEntry para Data Movimento
-e_dtMovimento = DateEntry(frameMeio, width=16, font=('Ivy', 12, 'bold'), background='darkblue', foreground='white', borderwidth=2, year=2024, date_pattern='dd/mm/yyyy')
-e_dtMovimento.place(x=540, y=161)
-e_dtMovimento = label_entry(frameMeio,"Data de Emissão",400,160)
+e_dtMovimento = label_entry(frameMeio,"DATA MOVIMENTO:",450,160)
 
 opcoes_Movimento = [
     "",
@@ -351,18 +342,18 @@ opcoes_Movimento = [
 ]
 
 # Label para o tipo de movimento
-tipoMovimento = ctk.CTkLabel(frameMeio, text='Tipo de Movimento:', height=1, anchor='nw', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
-tipoMovimento.place(x=400, y=190)
+tipoMovimento = ctk.CTkLabel(frameMeio, text='TIPO MOVIMENTO:', height=1, anchor='nw', font=('Ivy', 12, 'bold'), text_color=co4, fg_color=co1)
+tipoMovimento.place(x=450, y=195)
 
 # Adicionando o CTkComboBox para selecionar o tipo de movimento
-combo_movimento = ctk.CTkComboBox(frameMeio, values=opcoes_Movimento, width=170, font=('Ivy', 12, 'bold'))
-combo_movimento.place(x=540, y=191)
+combo_movimento = ctk.CTkComboBox(frameMeio, values=opcoes_Movimento, width=240,height=23, font=('Ivy', 12, 'bold'))
+combo_movimento.place(x=590, y=191)
 
 
-e_valorICMSMensal = label_entry(frameMeio,"Valor ICMS Mensal:",400,220)
-e_codigoItemEstoque = label_entry(frameMeio,"Código Item Estoque:",400,250)
-e_centroCusto = label_entry(frameMeio,"Centro de Custo",400,280)
-e_conta = label_entry(frameMeio,"Conta:",400,310)
+e_valorICMSMensal = label_entry(frameMeio,"VALOR ICMS MENSAL:",450,220)
+e_codigoItemEstoque = label_entry(frameMeio,"CÓDIGO ITEM ESTOQUE:",450,250)
+e_centroCusto = label_entry(frameMeio,"CENTRO DE CUSTOS:",450,280)
+e_conta = label_entry(frameMeio,"CONTA:",450,310)
 
 
 
@@ -389,7 +380,7 @@ botao_inserir = ctk.CTkButton(
 )
 
 # Posicionando o botão na tela
-botao_inserir.place(x=770, y=10)
+botao_inserir.place(x=870, y=10)
 
 
 # Abrindo a imagem
@@ -415,7 +406,7 @@ botao_atualizar = ctk.CTkButton(
 )
 
 # Posicionando o botão na tela
-botao_atualizar.place(x=770, y=50)
+botao_atualizar.place(x=870, y=50)
 
 # Abrindo a imagem
 imagem_deletar = Image.open('icons8-delete-50.png')  # Caminho para a imagem
@@ -440,7 +431,7 @@ botao_deletar = ctk.CTkButton(
 )
 
 # Posicionando o botão na tela
-botao_deletar.place(x=770, y=90)
+botao_deletar.place(x=870, y=90)
 
 # Abrindo a imagem
 imagem_procurar = Image.open('icons8-search-48.png')  # Caminho para a imagem
@@ -464,7 +455,7 @@ botao_procurar = ctk.CTkButton(
 )
 
 # Posicionando o botão na tela
-botao_procurar.place(x=770, y=130)
+botao_procurar.place(x=870, y=130)
 
 
 
