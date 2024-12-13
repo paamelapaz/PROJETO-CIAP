@@ -16,6 +16,7 @@ global tree
 
 
 
+
 #cores
 
 co0 = "#2e2d2b" #preta
@@ -259,6 +260,8 @@ def atualizar():
             e_conta.delete(0, 'end')
 
             botao_confirmar.destroy()
+            botao_cancelar.destroy()
+
             mostrar()
 
         botao_confirmar = ctk.CTkButton(
@@ -277,6 +280,52 @@ def atualizar():
         # Posicionando o botão na tela
         botao_confirmar.place(x=870, y=220)
 
+        def cancelar():
+            e_numeroRegistro.delete(0, 'end')
+            e_tipoRegistro.delete(0, 'end')
+            e_numeroTabela.delete(0, 'end')
+            e_nomeTabela.delete(0, 'end')
+            e_codigoBem.delete(0, 'end')
+            e_sequenciaBem.delete(0, 'end')
+            e_fornecedor.delete(0, 'end')
+            e_enderecoFornecedor.delete(0, 'end')
+            e_descricaoBem.delete(0, 'end')
+            e_numDocAquis.delete(0, 'end')
+            e_serieDocCompra.delete(0, 'end')
+            e_tipoDocCompra.delete(0, 'end')
+            e_dtEmissDoc.delete(0, 'end')
+            e_chaveNFECompra.delete(0, 'end')
+            e_valorICMSAquis.delete(0, 'end')
+            e_numeroParcelas.delete(0, 'end')
+            e_dtMovimento.delete(0, 'end')
+            combo_movimento.set('')
+            e_valorICMSMensal.delete(0, 'end')
+            e_codigoItemEstoque.delete(0, 'end')
+            e_centroCusto.delete(0, 'end')
+            e_conta.delete(0, 'end')
+
+            # Remover o botão de confirmação
+            botao_confirmar.destroy()
+            botao_cancelar.destroy()
+
+
+
+        botao_cancelar = ctk.CTkButton(
+            frameMeio,
+            command=cancelar,
+            text=" Cancelar".upper(),  # Texto do botão
+            font=("Ivy", 12, 'bold'),  # Fonte do texto
+            fg_color="red",  # Cor de fundo do botão
+            text_color=co0,  # Cor do texto
+            width=120,  # Largura do botão
+            height=30,  # Altura do botão
+            border_color="red",  # Cor da borda
+            border_width=1  # Largura da borda
+        )
+
+        # Posicionando o botão na tela
+        botao_cancelar.place(x=870, y=260)
+
     except IndexError:
         messagebox.showerror('Erro', 'Selecione um dos dados na tabela')
 
@@ -291,14 +340,96 @@ def deletar():
 
         valor = treev_lista[0]
 
-        deletar_form([valor])
+        resposta = messagebox.askyesno("Confirmação", "Você tem certeza que deseja deletar este item?")
 
-        messagebox.showinfo('Sucesso', 'Os dados foram deletados com sucesso')
+        if resposta:
+            deletar_form([valor])
 
-        mostrar()
+            messagebox.showinfo('Sucesso', 'Os dados foram deletados com sucesso')
+
+            mostrar()
+        else:
+            messagebox.showinfo('Cancelado', "A exclusão foi cancelada")
 
     except IndexError:
         messagebox.showerror('Erro', 'Selecione um dos dados na tabela')
+
+
+
+def procurar():
+    # Obter valores dos campos de entrada
+    numero_registro = e_numeroRegistro.get()
+    tipo_registro = e_tipoRegistro.get()
+    numero_tabela = e_numeroTabela.get()
+    nome_tabela = e_nomeTabela.get()
+    codigo_bem = e_codigoBem.get()
+    sequencia_bem = e_sequenciaBem.get()
+    fornecedor = e_fornecedor.get()
+    endereco_fornecedor = e_enderecoFornecedor.get()
+    descricao_bem = e_descricaoBem.get()
+    numero_doc_aquis = e_numDocAquis.get()
+    serie_doc_compra = e_serieDocCompra.get()
+    tipo_doc_compra = e_tipoDocCompra.get()
+    dt_emiss_doc = e_dtEmissDoc.get()
+    chave_nfe_compra = e_chaveNFECompra.get()
+    valor_icms_aquis = e_valorICMSAquis.get()
+    numero_parcelas = e_numeroParcelas.get()
+    dt_movimento = e_dtMovimento.get()
+    tipo_movimento = combo_movimento.get()
+    valor_icms_mensal = e_valorICMSMensal.get()
+    codigo_item_estoque = e_codigoItemEstoque.get()
+    centro_custo = e_centroCusto.get()
+    conta = e_conta.get()
+
+    # Lista de campos para busca
+    campos_busca = {
+        'numero_registro': numero_registro,
+        'tipo_registro': tipo_registro,
+        'numero_tabela': numero_tabela,
+        'nome_tabela': nome_tabela,
+        'codigo_bem': codigo_bem,
+        'sequencia_bem': sequencia_bem,
+        'fornecedor': fornecedor,
+        'endereco_fornecedor': endereco_fornecedor,
+        'descricao_bem': descricao_bem,
+        'numero_doc_aquis': numero_doc_aquis,
+        'serie_doc_compra': serie_doc_compra,
+        'tipo_doc_compra': tipo_doc_compra,
+        'dt_emiss_doc': dt_emiss_doc,
+        'chave_nfe_compra': chave_nfe_compra,
+        'valor_icms_aquis': valor_icms_aquis,
+        'numero_parcelas': numero_parcelas,
+        'dt_movimento': dt_movimento,
+        'tipo_movimento': tipo_movimento,
+        'valor_icms_mensal': valor_icms_mensal,
+        'codigo_item_estoque': codigo_item_estoque,
+        'centro_custo': centro_custo,
+        'conta': conta
+    }
+
+    # Filtrando a lista de dados que vão ser exibidos
+    resultados = []
+
+    # A função 'consultar_dados' pode ser um exemplo, onde você consulta no banco de dados ou na lista.
+    for item in lista_dados:  # Aqui 'lista_dados' pode ser a lista de todos os dados que você possui (pode ser um banco de dados, lista local, etc.)
+        corresponde = True  # Inicialmente assume que todos os dados correspondem.
+
+        for campo, valor in campos_busca.items():
+            if valor and valor != item.get(campo):  # Se um campo foi preenchido e não for igual ao item, não corresponde
+                corresponde = False
+                break
+
+        if corresponde:
+            resultados.append(item)
+
+    # Exibir resultados na árvore (treeview)
+    for row in tree.get_children():
+        tree.delete(row)  # Limpar a lista exibida
+
+    for resultado in resultados:
+        tree.insert("", "end", values=resultado)
+
+
 
 
 #criando logo no frameCima
